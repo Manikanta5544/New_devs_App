@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Dict, Any, List
 
-async def calculate_monthly_revenue(property_id: str, month: int, year: int, db_session=None) -> Decimal:
+async def calculate_monthly_revenue(property_id: str, month: int, year: int, db_session=None, tenant_id: str) -> Decimal:
     """
     Calculates revenue for a specific month.
     """
@@ -59,10 +59,10 @@ async def calculate_total_revenue(property_id: str, tenant_id: str) -> Dict[str,
     """
     try:
         # Import database pool
-        from app.core.database_pool import DatabasePool
+        from app.core.database_pool import db_pool
         
         # Initialize pool if needed
-        db_pool = DatabasePool()
+        # db_pool = DatabasePool()
         await db_pool.initialize()
         
         if db_pool.session_factory:
