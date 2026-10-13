@@ -47,10 +47,10 @@ async def get_dashboard_summary(
             async with db_pool.get_session() as session:
                 total_revenue = await calculate_monthly_revenue(
                     property_id=property_id,
+                    tenant_id=tenant_id,
                     month=month,
                     year=year,
-                    db_session=session,
-                    tenant_id=tenant_id
+                    db_session=session
                 )
 
             return {
