@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import Dict, Any
 from app.services.cache import get_revenue_summary
 from app.core.auth import authenticate_request as get_current_user
@@ -69,10 +69,9 @@ async def get_dashboard_summary(
             ) from e
         
     revenue_data = await get_revenue_summary(property_id, tenant_id)
-    total_revenue = str(Decimal(str(revenue_data["total"])))
     return {
         "property_id": revenue_data['property_id'],
-        "total_revenue": total_revenue_float,
+        "total_revenue": str(revenue_data["total"]),
         "currency": revenue_data['currency'],
         "reservations_count": revenue_data['count']
     }
